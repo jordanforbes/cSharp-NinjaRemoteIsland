@@ -14,16 +14,40 @@ namespace cSharp_NinjaRemoteIsland.Models
             Speed = 10;
         }
 
-        public override int Attack(Villain target)
+        public override void Attack(Villain target)
         {
-            // int completedmg = Health * 5;
-            // target.Health -= completedmg;
-            // if(target.Health>50)
-            // {
-            //     target.Health = 0;
-            // }
-            // Console.WriteLine($"{Name} attacked {target.Name} for {completedmg} damage!");
-            // return target.Health;
+            // Build Attack method
+            Random rand = new Random();
+            // give me a random number between 1 and 15
+            int roll = rand.Next(1,16);
+            int damage = 0;
+            if(roll == 15) 
+            {
+                // critical success!
+                damage = (int) 1.5 * Speed;
+                Console.WriteLine($"{Name} throws Shuriken at {target.Name}! Critical Hit! {target.Name} takes {damage} damage!");
+            } 
+            else if(roll > 4)
+            {
+                // just a hit
+                damage = Speed;
+                Console.WriteLine($"{Name} throws Shuriken at {target.Name}! Hit! {target.Name} takes {damage} damage!");
+            }
+            else
+            {
+                // miss
+                Console.WriteLine($"Miss! {Name} missed the mark!");
+            }
+            target.health -= damage;
+        }
+
+        public int Steal(Villain target)
+        {
+            int stole = health * 5;
+            target.health -= stole;
+            health += stole;
+            Console.WriteLine($"{Name} stole {stole} health from {target.Name}!");
+            return target.health;
         }
     }
 }

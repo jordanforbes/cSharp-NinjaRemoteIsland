@@ -13,5 +13,39 @@ namespace cSharp_NinjaRemoteIsland.Models
         {
             Strength = 10;
         }
+
+        public override void Attack(Villain target)
+        {
+            // Build Attack method
+            Random rand = new Random();
+            // give me a random number between 1 and 15
+            int roll = rand.Next(1,16);
+            int damage = 0;
+            if(roll == 15) 
+            {
+                // critical success!
+                damage = (int) 1.5 * Strength;
+                Console.WriteLine($"{Name} slaps {target.Name}! Critical Hit! {target.Name} takes {damage} damage!");
+            } 
+            else if(roll > 4)
+            {
+                // just a hit
+                damage = Strength;
+                Console.WriteLine($"{Name} chop {target.Name}! {target.Name} takes {damage} damage!");
+            }
+            else
+            {
+                // miss
+                Console.WriteLine($"Miss! {Name} missed the mark!");
+            }
+            target.health -= damage;
+        }
+
+        public void Meditate()
+        {
+            // Build Meditate method
+            Strength += 2;
+            Console.WriteLine($"{Name} meditated and strength is now {Strength}!");
+        }
     }
 }

@@ -3,24 +3,25 @@ using System.Collections.Generic;
 
 namespace cSharp_NinjaRemoteIsland.Models
 {
-    public abstract class Hero 
+    public abstract class Villain
     {
         public string Name;
         public int Intelligence;
         public int Strength;
         public int Speed;
-        protected int health;
+        public int health;
 
         public int Health
         {
             get;set;
         }
 
+        // public string 
         // public string GetInfo()
         // {
         //     return $"{Name} Intelligence: {Intelligence}.  Strength: {Strength}, Speed: {Speed} Health Available:{Health}";
         // }
-        public Hero(string name)
+        public Villain(string name)
         {
             Name = name;
             Intelligence = 5;
@@ -38,12 +39,13 @@ namespace cSharp_NinjaRemoteIsland.Models
         }
 
         List<IMedicine> MedicineBag = new List<IMedicine>();
-        public void ApplyDamage(int Damage)
+
+public void ApplyDamage(int Damage)
         {
             health -= Damage;
         }
 
-        public virtual void Attack(Villain target)
+        public virtual void Attack(Hero target)
         {
             // Build Attack method
             Random rand = new Random();
@@ -67,7 +69,7 @@ namespace cSharp_NinjaRemoteIsland.Models
                 // miss
                 Console.WriteLine($"Miss! {Name} missed the mark!");
             }
-            target.health -= damage;
+            target.Health -= damage;
         }
     }
 }
