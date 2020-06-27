@@ -2,25 +2,24 @@ using System;
 using System.Collections.Generic;
 
 namespace cSharp_NinjaRemoteIsland.Models {
-    public abstract class Hero {
+    public abstract class Villain {
         public string Name;
         public int Intelligence;
         public int Strength;
         public int Speed;
-        protected int health;
+        public int health;
 
-        public int Health {
-            get;
-            set;
-        }
-
-        public Hero (string name) {
+        public Villain (string name) {
             Name = name;
             Intelligence = 5;
             Strength = 5;
             Speed = 5;
             health = 100;
-            this.MedicineBag = new List<IMedicine>();
+            this.MedicineBag = new List<IMedicine> ();
+        }
+
+        public void ApplyDamage (int Damage) {
+            health -= Damage;
         }
 
         public abstract void SayName ();
@@ -31,11 +30,7 @@ namespace cSharp_NinjaRemoteIsland.Models {
 
         List<IMedicine> MedicineBag = new List<IMedicine> ();
 
-        public void ApplyDamage (int Damage) {
-            health -= Damage;
-        }
-
-        public virtual void Attack (Villain target) {
+        public virtual void Attack (Hero target) {
             Random rand = new Random ();
             // give me a random number between 1 and 20
             int roll = rand.Next (1, 16);
@@ -52,7 +47,7 @@ namespace cSharp_NinjaRemoteIsland.Models {
                 // miss
                 Console.WriteLine ($"Miss! {Name} missed the mark!");
             }
-            target.health -= damage;
+            target.Health -= damage;
         }
 
     }
